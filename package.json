@@ -1,6 +1,6 @@
 {
   "name": "gulp-recess",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Lint CSS and LESS with RECESS",
   "license": "MIT",
   "repository": "sindresorhus/gulp-recess",
