@@ -1,0 +1,38 @@
+{
+  "name": "gulp-recess",
+  "version": "0.0.0",
+  "description": "Lint CSS and LESS with RECESS",
+  "license": "MIT",
+  "repository": "sindresorhus/gulp-recess",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "http://sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin",
+    "css",
+    "less",
+    "stylesheet",
+    "recess",
+    "lint",
+    "validate"
+  ],
+  "dependencies": {
+    "event-stream": "~3.0.20",
+    "gulp-util": "~2.2.0",
+    "recess": "~1.1.9"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
