@@ -2,7 +2,7 @@
 
 > Lint CSS and LESS with [RECESS](https://github.com/twitter/recess)
 
-*Issues with the output should be reported on the [RECESS issue tracker](https://github.com/twitter/recess/issues).*
+*Issues with the output should be reported on the RECESS [issue tracker](https://github.com/twitter/recess/issues).*
 
 
 ## Install
