@@ -19,10 +19,13 @@ npm install --save-dev gulp-recess
 ```js
 var gulp = require('gulp');
 var recess = require('gulp-recess');
+var less = require('gulp-less');
 
 gulp.task('default', function () {
 	gulp.src('src/app.css')
-		.pipe(recess());
+		.pipe(recess())
+		.pipe(less())
+		.pipe(gulp.dest('dist'));
 });
 ```
 
