@@ -16,14 +16,12 @@ it('should lint CSS with RECESS', function (cb) {
 	};
 
 	stream.write(new gutil.File({
-		base: __dirname,
-		path: __dirname + '/fixture.css',
+		path: 'fixture.css',
 		contents: new Buffer('.test-less{font-size:14px;background-color:green;}')
 	}));
 
 	stream.write(new gutil.File({
-		base: __dirname,
-		path: __dirname + '/fixture-invalid.css',
+		path: 'fixture-invalid.css',
 		contents: new Buffer('#test{background-color:green;font-size:0px;}')
 	}));
 });

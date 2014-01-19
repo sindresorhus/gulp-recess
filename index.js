@@ -1,6 +1,6 @@
 'use strict';
-var es = require('event-stream');
 var gutil = require('gulp-util');
+var through = require('through2');
 var recess = require('recess');
 
 // prevent RECESS from reading files
@@ -14,16 +14,27 @@ recess.Constructor.prototype.read = function () {
 module.exports = function (options) {
 	options = options || {};
 
-	return es.map(function (file, cb) {
+	return through.obj(function (file, enc, cb) {
+		if (file.isNull()) {
+			this.push(file);
+			return cb();
+		}
+
+		if (file.isStream()) {
+			this.emit('error', new gutil.PluginError('gulp-recess', 'Streaming not supported'));
+			return cb();
+		}
+
 		options.contents = file.contents.toString();
 
 		recess(file.path, options, function (err, data) {
 			if (err) {
-				return cb(err);
+				this.emit('error', new gutil.PluginError('gulp-recess', err.join('\n')));
 			}
 
 			gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
-			cb(null, file);
-		});
+			this.push(file);
+			cb();
+		}.bind(this));
 	});
 };
