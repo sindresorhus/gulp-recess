@@ -14,7 +14,7 @@ recess.Constructor.prototype.read = function () {
 module.exports = function (options) {
 	options = options || {};
 
-	var logOnSuccess = !!options.logOnSuccess;
+	var logOnSuccess = typeof options.logOnSuccess == 'boolean' ? options.logOnSuccess : true;
 	delete options.logOnSuccess;
 
 	return through.obj(function (file, enc, cb) {
