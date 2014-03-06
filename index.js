@@ -35,7 +35,7 @@ module.exports = function (options) {
 				this.emit('error', new gutil.PluginError('gulp-recess', err.join('\n')));
 			}
 
-			if((data[0].errors && count(data[0].errors) > 0) || logOnSuccess) {
+			if((data[0].errors && data[0].errors.length > 0) || logOnSuccess) {
 				gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
 				this.push(file);
 			}
