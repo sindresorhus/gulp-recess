@@ -13,7 +13,7 @@ recess.Constructor.prototype.read = function () {
 
 module.exports = function (options) {
 	options = options || {};
-	
+
 	var logOnSuccess = !!options.logOnSuccess;
 	delete options.logOnSuccess;
 
@@ -37,9 +37,10 @@ module.exports = function (options) {
 
 			if((data[0].errors && data[0].errors.length > 0) || logOnSuccess) {
 				gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
-				this.push(file);
 			}
-			
+
+			this.push(file);
+
 			cb();
 		}.bind(this));
 	});
