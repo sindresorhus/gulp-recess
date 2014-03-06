@@ -13,6 +13,9 @@ recess.Constructor.prototype.read = function () {
 
 module.exports = function (options) {
 	options = options || {};
+	
+	logOnSuccess = options.logOnSuccess || true;
+	delete options.logOnSuccess;
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -32,8 +35,11 @@ module.exports = function (options) {
 				this.emit('error', new gutil.PluginError('gulp-recess', err.join('\n')));
 			}
 
-			gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
-			this.push(file);
+			if((data[0].errors && count(data[0].errors) > 0) || logOnSuccess) {
+				gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
+				this.push(file);
+			}
+			
 			cb();
 		}.bind(this));
 	});
