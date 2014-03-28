@@ -1,4 +1,4 @@
-# [gulp](https://github.com/wearefractal/gulp)-recess [![Build Status](https://secure.travis-ci.org/sindresorhus/gulp-recess.png?branch=master)](http://travis-ci.org/sindresorhus/gulp-recess)
+# [gulp](http://gulpjs.com)-recess [![Build Status](https://travis-ci.org/sindresorhus/gulp-recess.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-recess)
 
 > Lint CSS and LESS with [RECESS](https://github.com/twitter/recess)
 
@@ -7,14 +7,12 @@
 
 ## Install
 
-Install with [npm](https://npmjs.org/package/gulp-recess)
-
-```
-npm install --save-dev gulp-recess
+```bash
+$ npm install --save-dev gulp-recess
 ```
 
 
-## Example
+## Usage
 
 ```js
 var gulp = require('gulp');
@@ -37,7 +35,7 @@ The `compress` and `compile` options from RECESS are intentionally missing. Sepa
 ### recess(options)
 
 ```js
-// default
+// default options
 includePath: []				// Additional paths to look for `@import`'ed LESS files.
 strictPropertyOrder: true	// Complains if not strict property order
 noIDs: true					// Doesn't complain about using IDs in your stylesheets
@@ -51,4 +49,4 @@ zeroUnits: true				// Doesn't complain if you add units to values of 0
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
