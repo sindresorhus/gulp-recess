@@ -1,6 +1,7 @@
 'use strict';
 var assert = require('assert');
 var gutil = require('gulp-util');
+var chalk = require('chalk');
 var recess = require('./index');
 var out = process.stdout.write.bind(process.stdout);
 
@@ -10,7 +11,7 @@ it('should lint CSS with RECESS', function (cb) {
 	stream.on('data', function () {});
 
 	stream.on('error', function (err) {
-		assert(/STATUS: Busted/.test(gutil.colors.stripColor(err.message)));
+		assert(/STATUS: Busted/.test(chalk.stripColor(err.message)));
 		cb();
 	});
 
