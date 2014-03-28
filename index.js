@@ -34,7 +34,7 @@ module.exports = function (options) {
 
 			// only log on failure
 			if (data[0].output[1].indexOf('Busted') !== -1) {
-				gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
+				this.emit('error', new gutil.PluginError('gulp-recess', '\n' + data[0].output.join('\n')));
 			}
 
 			this.push(file);

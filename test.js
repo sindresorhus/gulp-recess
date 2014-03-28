@@ -7,13 +7,12 @@ var out = process.stdout.write.bind(process.stdout);
 it('should lint CSS with RECESS', function (cb) {
 	var stream = recess();
 
-	process.stdout.write = function (str) {
-		if (/STATUS: Busted/.test(gutil.colors.stripColor(str))) {
-			assert(true);
-			process.stdout.write = out;
-			cb();
-		}
-	};
+	stream.on('data', function () {});
+
+	stream.on('error', function (err) {
+		assert(/STATUS: Busted/.test(gutil.colors.stripColor(err.message)));
+		cb();
+	});
 
 	stream.write(new gutil.File({
 		path: 'fixture.css',
