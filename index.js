@@ -32,7 +32,11 @@ module.exports = function (options) {
 				this.emit('error', new gutil.PluginError('gulp-recess', err.join('\n')));
 			}
 
-			gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
+			// only log on failure
+			if (data[0].output[1].indexOf('Busted') !== -1) {
+				gutil.log('gulp-recess:\n' + data[0].output.join('\n'));
+			}
+
 			this.push(file);
 			cb();
 		}.bind(this));
