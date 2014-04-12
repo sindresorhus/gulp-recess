@@ -20,7 +20,7 @@ var recess = require('gulp-recess');
 var less = require('gulp-less');
 
 gulp.task('default', function () {
-	gulp.src('src/app.css')
+	return gulp.src('src/app.css')
 		.pipe(recess())
 		.pipe(less())
 		.pipe(gulp.dest('dist'));
