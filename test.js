@@ -25,3 +25,19 @@ it('should lint CSS with RECESS', function (cb) {
 		contents: new Buffer('#test{background-color:green;font-size:0px;}')
 	}));
 });
+
+it('should handle LESS parse errors', function (cb) {
+	var stream = recess();
+
+	stream.on('data', function () {});
+
+	stream.on('error', function (err) {
+		assert.strictEqual(err.message, '.woops is undefined');
+		cb();
+	});
+
+	stream.write(new gutil.File({
+		path: 'fixture.less',
+		contents: new Buffer('div {\n.woops\n}')
+	}));
+});

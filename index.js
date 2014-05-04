@@ -29,7 +29,11 @@ module.exports = function (options) {
 
 		recess(file.path, options, function (err, data) {
 			if (err) {
-				this.emit('error', new gutil.PluginError('gulp-recess', err.join('\n')));
+				err.forEach(function (el) {
+					this.emit('error', new gutil.PluginError('gulp-recess', el));
+				}, this);
+				this.push(file);
+				return;
 			}
 
 			// only log on failure
