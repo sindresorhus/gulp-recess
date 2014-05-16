@@ -17,12 +17,11 @@ $ npm install --save-dev gulp-recess
 ```js
 var gulp = require('gulp');
 var recess = require('gulp-recess');
-var less = require('gulp-less');
 
 gulp.task('default', function () {
 	return gulp.src('src/app.css')
 		.pipe(recess())
-		.pipe(less())
+		.pipe(recess.reporter())
 		.pipe(gulp.dest('dist'));
 });
 ```
@@ -34,6 +33,8 @@ The `compress` and `compile` options from RECESS are intentionally missing. Sepa
 
 ### recess(options)
 
+Run recess on each file
+
 ```js
 // default options
 includePath: []				// Additional paths to look for `@import`'ed LESS files.
@@ -44,6 +45,27 @@ noOverqualifying: true		// Doesn't complain about overqualified selectors (ie: d
 noUnderscores: true			// Doesn't complain about using underscores in your class names
 noUniversalSelectors: true	// Doesn't complain about using the universal * selector
 zeroUnits: true				// Doesn't complain if you add units to values of 0
+```
+writes `.recess` object to each vinyl object
+```js
+{
+success: true,				// `Boolean`: did it succeed?
+status: 'Perfect!',			// Recess status
+failureCount: 0,			// `int`: number of errors
+results: [],				// array of recess failure details
+errors: [],					// Recess errors
+opt: {},					// The options passed to recess
+}
+```
+
+### recess.reporter(options)
+
+Write the report on each failing file.  (Passing files write no output.)
+
+```js
+// default options
+continueOnError: false		// If true, it writes error event on failure
+minimal: false				// If true, it only lists failure filenames omitting details
 ```
 
 
