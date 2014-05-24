@@ -54,7 +54,7 @@ status: 'Perfect!',			// Recess status
 failureCount: 0,			// `int`: number of errors
 results: [],				// array of recess failure details
 errors: [],					// Recess errors
-opt: {},					// The options passed to recess
+options: {},				// The options passed to recess
 }
 ```
 
@@ -64,7 +64,7 @@ Write the report on each failing file.  (Passing files write no output.)
 
 ```js
 // default options
-continueOnError: false		// If true, it writes error event on failure
+fail: true					// If true, it writes error event on failure
 minimal: false				// If true, it only lists failure filenames omitting details
 ```
 

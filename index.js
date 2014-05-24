@@ -31,7 +31,7 @@ module.exports = function (options) {
 
 		options.contents = file.contents.toString();
 
-		recess(file.path, options, function (err, data) {
+		recess(file.path, options, function (err, results) {
 			if (err) {
 				err.forEach(function (el) {
 					this.emit('error', new PluginError(PLUGIN_NAME, el));
@@ -40,27 +40,25 @@ module.exports = function (options) {
 				return;
 			}
 
-			var d = data[0]; // we only linted one file
+			var data = results[0]; // we only linted one file
 
 			var failureCount = 0;
-			if (d.output.length > 2) {
-				failureCount = chalk.stripColor(d.output[2]);
-				var m = /([0-9]+) fail/i.exec(failureCount);
-				if (m && m.length > 0) {
-					failureCount = parseInt(m[1]);
+			if (data.output.length > 2) {
+				failureCount = chalk.stripColor(data.output[2]);
+				var match = /([0-9]+) fail/i.exec(failureCount);
+				if (match && match.length > 0) {
+					failureCount = parseInt(match[1]);
 				}
 			}
 
 			file.recess = {
-				success: (d.output[1].indexOf('Busted') === -1),
-				status: chalk.stripColor(d.output[1]).replace(/status: /i,'').trim(),
+				success: (data.output[1].indexOf('Busted') === -1),
+				status: chalk.stripColor(data.output[1]).replace(/status: /i,'').trim(),
 				failureCount: failureCount,
-				results: d.output.slice(3), // .map(function (i) {return chalk.stripColor(i).trim().replace('\n\n', '\n');}), // remove CRLF
-				errors: d.errors,
+				results: data.output.slice(3), // .map(function (i) {return chalk.stripColor(i).trim().replace('\n\n', '\n');}), // remove CRLF
+				errors: data.errors,
 				opt: options
 			};
-
-			console.log(file.recess);
 
 			this.push(file);
 			cb();
@@ -90,7 +88,7 @@ module.exports.reporter = function (options) {
 			if (!options.minimal) {
 				console.log(file.recess.results.join('\n'));
 			}
-			if (!options.continueOnError) {
+			if (!options.hasOwnProperty('fail') || options.fail) {
 				// TODO: wait until on('end') to avoid stopping here?
 				this.emit('error', new PluginError(PLUGIN_NAME, filename+': '+file.recess.status+' '+r.failureCount+' failures'));
 			}

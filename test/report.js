@@ -40,7 +40,7 @@ describe('gulp-recess', function () {
 
 		it('should lint invalid CSS', function (done) {
 			var stream = recess();
-			var reporter = recess.reporter({continueOnError:true});
+			var reporter = recess.reporter({fail:false});
 			var actualData;
 
 			stream.on('data', function (d) {
@@ -64,7 +64,7 @@ describe('gulp-recess', function () {
 
 		it('should lint invalid CSS and output minimal', function (done) {
 			var stream = recess();
-			var reporter = recess.reporter({continueOnError:true, minimal:true});
+			var reporter = recess.reporter({fail:false, minimal:true});
 			var actualData;
 
 			stream.on('data', function (d) {
