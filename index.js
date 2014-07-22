@@ -55,7 +55,7 @@ module.exports = function (options) {
 				success: (data.output[1].indexOf('Busted') === -1),
 				status: chalk.stripColor(data.output[1]).replace(/status: /i,'').trim(),
 				failureCount: failureCount,
-				results: data.output.slice(3), // .map(function (i) {return chalk.stripColor(i).trim().replace('\n\n', '\n');}), // remove CRLF
+				results: data.output.slice(3),
 				errors: data.errors,
 				opt: options
 			};
@@ -80,17 +80,16 @@ module.exports.reporter = function (options) {
 			return cb();
 		}
 
-		var r = file.recess;
+		var recessDataForThisFile = file.recess;
 		var filename = path.relative(file.cwd, file.path);
 
-		if (r && !r.success) {
-			console.log(' ['+chalk.green(PLUGIN_NAME)+'] '+filename+': '+chalk.red(r.status)+' '+r.failureCount+' failures');
+		if (recessDataForThisFile && !recessDataForThisFile.success) {
+			console.log(' ['+chalk.green(PLUGIN_NAME)+'] '+filename+': '+chalk.red(recessDataForThisFile.status)+' '+recessDataForThisFile.failureCount+' failures');
 			if (!options.minimal) {
 				console.log(file.recess.results.join('\n'));
 			}
 			if (!options.hasOwnProperty('fail') || options.fail) {
-				// TODO: wait until on('end') to avoid stopping here?
-				this.emit('error', new PluginError(PLUGIN_NAME, filename+': '+file.recess.status+' '+r.failureCount+' failures'));
+				this.emit('error', new PluginError(PLUGIN_NAME, filename+': '+file.recess.status+' '+recessDataForThisFile.failureCount+' failures'));
 			}
 		}
 

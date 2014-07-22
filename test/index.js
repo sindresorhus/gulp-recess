@@ -10,13 +10,13 @@ describe('gulp-recess', function () {
 			var stream = recess();
 			var called = 0;
 
-			stream.on('data', function (d) {
-				assert(d.hasOwnProperty('recess')); // exists
-				assert(d.recess.success === true); // it passed
+			stream.on('data', function (data) {
+				assert(data.hasOwnProperty('recess')); // exists
+				assert(data.recess.success === true); // it passed
 				// FRAGILE: changes in recess could change these:
-				assert(d.recess.status === 'Perfect!');
-				assert(d.recess.failureCount === 0);
-				assert(d.recess.results.length === 0);
+				assert(data.recess.status === 'Perfect!');
+				assert(data.recess.failureCount === 0);
+				assert(data.recess.results.length === 0);
 				called++;
 			});
 
