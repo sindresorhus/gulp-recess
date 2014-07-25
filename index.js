@@ -1,5 +1,4 @@
 'use strict';
-var path = require('path');
 var gutil = require('gulp-util');
 var through = require('through2');
 var chalk = require('chalk');
@@ -34,7 +33,10 @@ module.exports = function (options) {
 		recess(file.path, options, function (err, results) {
 			if (err) {
 				err.forEach(function (el) {
-					this.emit('error', new gutil.PluginError('gulp-recess', el));
+					this.emit('error', new gutil.PluginError('gulp-recess', el, {
+						fileName: file.path,
+						showStack: false
+					}));
 				}, this);
 				this.push(file);
 				return;
@@ -83,17 +85,19 @@ module.exports.reporter = function (options) {
 		}
 
 		var recessDataForThisFile = file.recess;
-		var filename = path.relative(file.cwd, file.path);
 
 		if (recessDataForThisFile && !recessDataForThisFile.success) {
-			console.log(' [' + chalk.green('gulp-recess') + '] ' + filename + ': ' + chalk.red(recessDataForThisFile.status) + ' ' + recessDataForThisFile.failureCount+' failures');
+			console.log(' [' + chalk.green('gulp-recess') + '] ' + file.relative + ': ' + chalk.red(recessDataForThisFile.status) + ' ' + recessDataForThisFile.failureCount+' failures');
 			
 			if (!options.minimal) {
 				console.log(file.recess.results.join('\n'));
 			}
 
 			if (!options.hasOwnProperty('fail') || options.fail) {
-				this.emit('error', new gutil.PluginError('gulp-recess', filename + ': ' + file.recess.status + ' ' + recessDataForThisFile.failureCount+' failures'));
+				this.emit('error', new gutil.PluginError('gulp-recess', file.relative + ': ' + file.recess.status + ' ' + recessDataForThisFile.failureCount + ' failures', {
+					fileName: file.path,
+					showStack: false
+				}));
 			}
 		}
 
