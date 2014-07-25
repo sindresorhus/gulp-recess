@@ -46,15 +46,17 @@ noUnderscores: true			// Doesn't complain about using underscores in your class 
 noUniversalSelectors: true	// Doesn't complain about using the universal * selector
 zeroUnits: true				// Doesn't complain if you add units to values of 0
 ```
-writes `.recess` object to each vinyl object
+
+Writes `.recess` object to each vinyl object:
+
 ```js
 {
-success: true,				// `Boolean`: did it succeed?
-status: 'Perfect!',			// Recess status
-failureCount: 0,			// `int`: number of errors
-results: [],				// array of recess failure details
-errors: [],					// Recess errors
-options: {},				// The options passed to recess
+	success: true,			// Did it succeed?
+	status: 'Perfect!',		// Recess status
+	failureCount: 0,		// Number of errors
+	results: [],			// Recess failure details
+	errors: [],				// Recess errors
+	options: {}				// The options passed to Recess
 }
 ```
 
