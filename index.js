@@ -3,6 +3,7 @@ var gutil = require('gulp-util');
 var through = require('through2');
 var chalk = require('chalk');
 var recess = require('recess');
+var RcLoader = require('rcloader');
 
 // prevent RECESS from reading files
 recess.Constructor.prototype.read = function () {
@@ -14,6 +15,8 @@ recess.Constructor.prototype.read = function () {
 
 module.exports = function (options) {
 	options = options || {};
+
+	var rcLoader = new RcLoader('.recessrc', options);
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -28,6 +31,7 @@ module.exports = function (options) {
 			return;
 		}
 
+		options = rcLoader.for(file.path);
 		options.contents = file.contents.toString();
 
 		recess(file.path, options, function (err, results) {

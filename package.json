@@ -31,7 +31,8 @@
     "chalk": "^0.5.1",
     "gulp-util": "^3.0.0",
     "recess": "^1.1.9",
-    "through2": "^0.5.1"
+    "through2": "^0.5.1",
+    "rcloader": "^0.1.2"
   },
   "devDependencies": {
     "jshint": "*",

@@ -29,7 +29,12 @@ gulp.task('default', function () {
 
 ## API
 
-The `compress` and `compile` options from RECESS are intentionally missing. Separate tasks like [gulp-csso](https://github.com/ben-eb/gulp-csso) and [gulp-less](https://github.com/plus3network/gulp-less) will do a much better job.
+Options can be specified programmatically as part of the task configuration using the options below.
+Additionally or alternatively, you can use a `.recessrc` file to specify the options.
+
+The `compress` and `compile` options from RECESS are intentionally missing. Separate tasks
+like [gulp-csso](https://github.com/ben-eb/gulp-csso) and [gulp-less](https://github.com/plus3network/gulp-less)
+will do a much better job.
 
 ### recess(options)
 
