@@ -20,14 +20,12 @@ module.exports = function (options) {
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
-			this.push(file);
-			cb();
+			cb(null, file);
 			return;
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-recess', 'Streaming not supported'));
-			cb();
+			cb(new gutil.PluginError('gulp-recess', 'Streaming not supported'));
 			return;
 		}
 
@@ -66,8 +64,7 @@ module.exports = function (options) {
 				opt: options
 			};
 
-			this.push(file);
-			cb();
+			cb(null, file);
 		}.bind(this));
 	});
 };
@@ -77,14 +74,12 @@ module.exports.reporter = function (options) {
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
-			this.push(file);
-			cb();
+			cb(null, file);
 			return;
 		}
 
 		if (file.isStream()) {
-			this.emit('error', new gutil.PluginError('gulp-recess', 'Streaming not supported'));
-			cb();
+			cb(new gutil.PluginError('gulp-recess', 'Streaming not supported'));
 			return;
 		}
 
@@ -92,20 +87,20 @@ module.exports.reporter = function (options) {
 
 		if (recessDataForThisFile && !recessDataForThisFile.success) {
 			console.log(' [' + chalk.green('gulp-recess') + '] ' + file.relative + ': ' + chalk.red(recessDataForThisFile.status) + ' ' + recessDataForThisFile.failureCount+' failures');
-			
+
 			if (!options.minimal) {
 				console.log(file.recess.results.join('\n'));
 			}
 
 			if (!options.hasOwnProperty('fail') || options.fail) {
-				this.emit('error', new gutil.PluginError('gulp-recess', file.relative + ': ' + file.recess.status + ' ' + recessDataForThisFile.failureCount + ' failures', {
+				cb(new gutil.PluginError('gulp-recess', file.relative + ': ' + file.recess.status + ' ' + recessDataForThisFile.failureCount + ' failures', {
 					fileName: file.path,
 					showStack: false
 				}));
+				return;
 			}
 		}
 
-		this.push(file);
-		cb();
+		cb(null, file);
 	});
 };
