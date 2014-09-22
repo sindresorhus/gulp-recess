@@ -37,10 +37,10 @@ module.exports = function (options) {
 			if (err) {
 				err.forEach(function (el) {
 					recessError = new gutil.PluginError('gulp-recess', el, {
-						fileName: file.path,
 						showStack: false
 					});
 
+					recessError.fileName = file.path;
 					recessError.recess = {
 						message: el.message,
 						filename: el.filename,
