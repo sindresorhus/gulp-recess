@@ -17,6 +17,7 @@ module.exports = function (options) {
 	options = options || {};
 
 	var rcLoader = new RcLoader('.recessrc', options);
+	var recessError;
 
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
@@ -35,10 +36,19 @@ module.exports = function (options) {
 		recess(file.path, options, function (err, results) {
 			if (err) {
 				err.forEach(function (el) {
-					this.emit('error', new gutil.PluginError('gulp-recess', el, {
+					recessError = new gutil.PluginError('gulp-recess', el, {
 						fileName: file.path,
 						showStack: false
-					}));
+					});
+
+					recessError.recess = {
+						message: el.message,
+						filename: el.filename,
+						line: el.line,
+						col: el.column
+					};
+
+					this.emit('error', recessError);
 				}, this);
 				this.push(file);
 				return;
