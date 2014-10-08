@@ -35,8 +35,18 @@ module.exports = function (options) {
 		recess(file.path, options, function (err, results) {
 			if (err) {
 				err.forEach(function (el) {
-					var recessError = new gutil.PluginError('gulp-recess', el, {
-						fileName: file.path,
+					var realError = new Error(el.message);
+
+					// el is an instance of LessError, which does not inherit
+					// from Error. PluginError expects an instance of Error.
+					// create a real Error and map LessError properties to it.
+					realError.columnNumber = el.column;
+					realError.fileName = el.filename;
+					realError.lineNumber = el.line;
+					realError.stack = el.stack;
+					realError.type = el.name;
+
+					var recessError = new gutil.PluginError('gulp-recess', realError, {
 						showStack: false
 					});
 
