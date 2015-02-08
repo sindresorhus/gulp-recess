@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-recess [![Build Status](https://travis-ci.org/sindresorhus/gulp-recess.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-recess)
+# gulp [![Build Status](https://travis-ci.org/sindresorhus/gulp-recess.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-recess)
 
 > Lint CSS and LESS with [RECESS](https://github.com/twitter/recess)
 
@@ -7,7 +7,7 @@
 
 ## Install
 
-```sh
+```
 $ npm install --save-dev gulp-recess
 ```
 
