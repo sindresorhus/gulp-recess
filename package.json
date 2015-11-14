@@ -32,7 +32,7 @@
     "gulp-util": "^3.0.0",
     "rcloader": "^0.1.2",
     "recess": "^1.1.9",
-    "through2": "^0.6.1"
+    "through2": "^2.0.0"
   },
   "devDependencies": {
     "jshint": "*",
