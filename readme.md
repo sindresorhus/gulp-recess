@@ -1,3 +1,7 @@
+# Deprecated since RECESS is [no longer maintained](https://github.com/twitter/recess)
+
+---
+
 # gulp-recess [![Build Status](https://travis-ci.org/sindresorhus/gulp-recess.svg?branch=master)](https://travis-ci.org/sindresorhus/gulp-recess)
 
 > Lint CSS and LESS with [RECESS](https://github.com/twitter/recess)
